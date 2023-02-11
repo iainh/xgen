@@ -34,6 +34,15 @@ func (opt *Options) OnElement(ele xml.StartElement, protoTree []interface{}) (er
 				return
 			}
 		}
+		if attr.Name.Local == "minOccurs" {
+			var minOccurs int
+			if minOccurs, err = strconv.Atoi(attr.Value); err != nil {
+				return
+			}
+			if minOccurs == 0 {
+				e.Optional = true
+			}
+		}
 		if attr.Name.Local == "maxOccurs" {
 			var maxOccurs int
 			if maxOccurs, err = strconv.Atoi(attr.Value); attr.Value != "unbounded" && err != nil {
