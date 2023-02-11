@@ -109,11 +109,7 @@ func (gen *CodeGenerator) GenRust() error {
 		return err
 	}
 	defer f.Close()
-	var extern = `#[macro_use]
-extern crate serde_derive;
-extern crate serde;
-extern crate serde_xml_rs;
-
+	var extern = `use serde::{Deserialize, Serialize};
 use serde_xml_rs::from_reader;`
 	source := []byte(fmt.Sprintf("%s\n\n%s\n%s", copyright, extern, gen.Field))
 	f.Write(source)
